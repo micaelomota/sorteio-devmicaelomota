@@ -21,8 +21,6 @@ export default function HomeScreen() {
   const [newParticipant, setNewParticipant] = useState<string>("");
 
   const onPressAddParticipant = () => {
-    debugger;
-
     if (newParticipant.trim() === "") {
       Alert.alert("Erro", "COLOCA UM NOME AÍ, PÔ!");
       return;
@@ -82,7 +80,7 @@ export default function HomeScreen() {
                         setParticipants(participants.filter((p) => p !== item));
                       },
                     },
-                  ]
+                  ],
                 );
               }}
             >
