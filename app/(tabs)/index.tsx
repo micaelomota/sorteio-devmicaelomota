@@ -1,7 +1,6 @@
 import {
   Image,
   StyleSheet,
-  Platform,
   TextInput,
   Button,
   Alert,
@@ -27,6 +26,7 @@ export default function HomeScreen() {
     }
 
     const _lowerCaseParticipant = newParticipant.toLowerCase();
+
     const capitalizedParticipant =
       _lowerCaseParticipant.charAt(0).toUpperCase() +
       _lowerCaseParticipant.slice(1);
