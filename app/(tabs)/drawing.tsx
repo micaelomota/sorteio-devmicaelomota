@@ -1,16 +1,18 @@
 import { db } from "@/config/firebase";
+import { FAB, ListItem } from "@rneui/themed";
+import { useNavigation } from "expo-router";
 import { collection, onSnapshot } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import {
-  Button,
   FlatList,
   SafeAreaView,
-  ScrollView,
   Text,
+  TouchableOpacity,
   View,
 } from "react-native";
 
 export default function HomeScreen() {
+  const navigate = useNavigation();
   const [sorteios, setSorteios] = useState<any>([]);
 
   useEffect(() => {
@@ -19,19 +21,36 @@ export default function HomeScreen() {
     });
   }, []);
 
-  console.log(sorteios);
+  const onPressPressDrawing = (drawing: any) => {
+    navigate.navigate("view", { id: "123" });
+  };
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
-      <Text>Sorteios</Text>
+      <View style={{ gap: 16 }}>
+        <Text style={{ fontSize: 22, textAlign: "center" }}>Seus sorteios</Text>
 
-      <FlatList
-        data={sorteios}
-        renderItem={({ item }) => (
-          <View>
-            <Text>{item.description}</Text>
-          </View>
-        )}
+        <FlatList
+          data={sorteios}
+          renderItem={({ item }) => (
+            <TouchableOpacity onPress={() => onPressPressDrawing(item)}>
+              <ListItem bottomDivider>
+                <ListItem.Content>
+                  <ListItem.Title>{item.name}</ListItem.Title>
+                  <ListItem.Subtitle>{item.description}</ListItem.Subtitle>
+                </ListItem.Content>
+                <ListItem.Chevron />
+              </ListItem>
+            </TouchableOpacity>
+          )}
+        />
+      </View>
+
+      <FAB
+        icon={{ name: "add", color: "white" }}
+        onPress={() => navigate.navigate("add")}
+        color="blue"
+        style={{ position: "absolute", bottom: 16, right: 16 }}
       />
     </SafeAreaView>
   );
