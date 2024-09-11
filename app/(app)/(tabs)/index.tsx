@@ -17,12 +17,17 @@ export default function HomeScreen() {
 
   useEffect(() => {
     onSnapshot(collection(db, "sorteios"), (snapShot) => {
-      setSorteios(snapShot.docs.map((doc) => doc.data()));
+      setSorteios(
+        snapShot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        })),
+      );
     });
   }, []);
 
   const onPressPressDrawing = (drawing: any) => {
-    navigate.navigate("view", { id: "123" });
+    navigate.navigate("view", { id: drawing.id });
   };
 
   return (
@@ -38,6 +43,11 @@ export default function HomeScreen() {
                 <ListItem.Content>
                   <ListItem.Title>{item.name}</ListItem.Title>
                   <ListItem.Subtitle>{item.description}</ListItem.Subtitle>
+                  <ListItem.Subtitle>
+                    {item.minParticipants}
+                    {" a "}
+                    {item.maxParticipants} participantes
+                  </ListItem.Subtitle>
                 </ListItem.Content>
                 <ListItem.Chevron />
               </ListItem>
@@ -49,7 +59,7 @@ export default function HomeScreen() {
       <FAB
         icon={{ name: "add", color: "white" }}
         onPress={() => navigate.navigate("add")}
-        color="blue"
+        color="#1DA1F2"
         style={{ position: "absolute", bottom: 16, right: 16 }}
       />
     </SafeAreaView>

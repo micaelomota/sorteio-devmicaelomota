@@ -7,14 +7,7 @@ import * as Yup from "yup";
 import { SafeAreaView, StyleSheet, Text, TextInput, View } from "react-native";
 import { useNavigation } from "expo-router";
 import { Button } from "@rneui/themed";
-
-const ErrorMessage = ({ error }: { error?: string }) => {
-  if (error) {
-    return <Text style={{ color: "red", fontSize: 12 }}>{error}</Text>;
-  }
-
-  return null;
-};
+import { ErrorMessage } from "@/components/ErrorMessage";
 
 // TODO: Add validation to the form for numbers
 const DrawingSchemaValidation = Yup.object().shape({
